@@ -530,7 +530,7 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 
 	int order = 1;
 	long int num;
-	l2+=" -1";
+	l2+=" ";
 	stringstream event(l2);
 
 	while (event >> num && rescue == -1)
