@@ -377,7 +377,7 @@ void event13(knight &knight, int num, string pack1)
 	}
 }
 
-void evennt15(knight &knight)
+void event15(knight &knight)
 {
 	knight.remedy = min(knight.remedy + 1, 99);
 	knight.end_event();
@@ -521,14 +521,13 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 
 	knight knight;
 
-	HP = knight.HP;
-	knight.maxHP = HP;
-	level = knight.level;
-	remedy = knight.remedy;
-	maidenkiss = knight.maidenkiss;
-	phoenixdown = knight.phoenixdown;
-	rescue = knight.rescue;
-
+	 knight.HP = HP;
+    knight.maxHP = HP;
+    knight.level = level;
+    knight.remedy = remedy;
+    knight.maidenkiss = maidenkiss;
+    knight.phoenixdown = phoenixdown;
+    knight.rescue = rescue;
 	if (knight.maxHP == 999)
 		knight.is_arthur = true;
 
@@ -582,7 +581,7 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 
 		else if (num == 15)
 		{
-			evennt15(knight);
+			event15(knight);
 		}
 		else if (num == 16)
 		{
@@ -616,12 +615,12 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 
 		if (rescue == 1 || rescue == 0)
 		{
-			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
+			display(knight.HP, knight.level, knight.remedy, knight.maidenkiss, knight.phoenixdown, knight.rescue);
 			break;
 		}
 		else
 		{
-			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
+			display(knight.HP, knight.level, knight.remedy, knight.maidenkiss, knight.phoenixdown, knight.rescue);
 			order++;
 		}
 	}
