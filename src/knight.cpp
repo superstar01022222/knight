@@ -530,6 +530,7 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 
 	int order = 1;
 	long int num;
+	l2+=" -1";
 	stringstream event(l2);
 
 	while (event >> num && rescue == -1)
@@ -600,11 +601,14 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 		{
 			event99();
 		}
+		if (num==-1){
+			rescue=1;
+		}
 		if (num > 130)
 		{
 			event13(num, pack1);
 		}
-
+		
 		if (rescue == 1 || rescue == 0)
 		{
 			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
@@ -616,6 +620,6 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 			order++;
 		}
 	}
-
+	
 	
 }
