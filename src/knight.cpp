@@ -505,36 +505,37 @@ void read_input(string a, string l1, string l2, string l3)
 }
 
 // read file name in line 3
-void read_pack(string pack1, string pack2, string pack3, string line3){
+void read_pack(string pack1, string pack2, string pack3, string line3)
+{
 	stringstream file(line3);
-	getline(file,pack1,',');
-	getline(file,pack2,',');
-	getline(file,pack3,',');
+	getline(file, pack1, ',');
+	getline(file, pack2, ',');
+	getline(file, pack3, ',');
 }
 
 void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &maidenkiss, int &phoenixdown, int &rescue)
 {
 	string l1, l2, l3;
-	read_input(file_input,l1, l2, l3);
+	read_input(file_input, l1, l2, l3);
 	stringstream info(l1);
 	info >> HP >> level >> remedy >> maidenkiss >> phoenixdown;
 
 	knight knight;
 
-	 knight.HP = HP;
-    knight.maxHP = HP;
-    knight.level = level;
-    knight.remedy = remedy;
-    knight.maidenkiss = maidenkiss;
-    knight.phoenixdown = phoenixdown;
-    knight.rescue = rescue;
+	knight.HP = HP;
+	knight.maxHP = HP;
+	knight.level = level;
+	knight.remedy = remedy;
+	knight.maidenkiss = maidenkiss;
+	knight.phoenixdown = phoenixdown;
+	knight.rescue = rescue;
 	if (knight.maxHP == 999)
 		knight.is_arthur = true;
 
 	if (is_prime(knight.maxHP))
 		knight.is_lancelot = true;
-	string pack1,pack2,pack3;
-	read_pack(pack1,pack2,pack3,l3);
+	string pack1, pack2, pack3;
+	read_pack(pack1, pack2, pack3, l3);
 
 	int order = 1;
 	long int num;
