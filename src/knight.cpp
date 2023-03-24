@@ -121,12 +121,9 @@ void is_continue()
 		rescue = -1;
 }
 
-void end_event()
-{
-	tiny();
-	frog();
-	is_continue();
-}
+tiny();
+frog();
+is_continue();
 
 void event1(int order)
 {
@@ -136,7 +133,9 @@ void event1(int order)
 	else if (level < levelO)
 		HP -= levelO * 10;
 
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 
 void event2(int order)
@@ -146,7 +145,9 @@ void event2(int order)
 		level = min(10, level + 1);
 	else if (level < levelO)
 		HP -= levelO * 15;
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 
 void event3(int order)
@@ -157,7 +158,9 @@ void event3(int order)
 	else if (level < levelO)
 		HP -= levelO * 45;
 
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 void event4(int order)
 {
@@ -167,7 +170,9 @@ void event4(int order)
 	else if (level < levelO)
 		HP -= levelO * 75;
 
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 void event5(int order)
 {
@@ -177,13 +182,17 @@ void event5(int order)
 	else if (level < levelO)
 		HP -= levelO * 95;
 
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 void event6(int order)
 {
 	if (is_frog || is_tiny)
 	{
-		end_event();
+		tiny();
+		frog();
+		is_continue();
 		return;
 	}
 	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
@@ -196,14 +205,18 @@ void event6(int order)
 		HP = max(1, HP / 5);
 	}
 
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 
 void event7(int order)
 {
 	if (is_frog || is_tiny)
 	{
-		end_event();
+		tiny();
+		frog();
+		is_continue();
 		return;
 	}
 	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
@@ -219,7 +232,9 @@ void event7(int order)
 		level = 1;
 	}
 
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 
 void event11()
@@ -233,7 +248,9 @@ void event11()
 	}
 	HP += (s1 % 100);
 	HP = min(HP, to_next_prime(HP));
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 void event12()
 {
@@ -245,7 +262,9 @@ void event12()
 			HP--;
 		}
 	}
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 // declare array for number sequence in MushhostPack
 int a[100], aa[100];
@@ -373,24 +392,32 @@ void event13(int num, string pack1)
 			mushtype4(m, n);
 		HP = min(maxHP, HP - (m + n));
 
-		end_event();
+		tiny();
+		frog();
+		is_continue();
 	}
 }
 
 void event15()
 {
 	remedy = min(remedy + 1, 99);
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 void event16()
 {
 	maidenkiss = min(maidenkiss + 1, 99);
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 void event17()
 {
 	phoenixdown = min(phoenixdown + 1, 99);
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 
 void event19(string pack2)
@@ -431,7 +458,9 @@ void event19(string pack2)
 		}
 	}
 
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 	asclepius_yet = true;
 }
 
@@ -470,7 +499,9 @@ void event18(string pack3)
 	}
 	HP = min(maxHP, HP + HP_gain);
 	merlin_yet = true;
-	end_event();
+	tiny();
+	frog();
+	is_continue();
 }
 
 void event99()
@@ -478,7 +509,9 @@ void event99()
 	if (level == 10 || is_arthur || (is_lancelot && level >= 8))
 	{
 		level = 10;
-		end_event();
+		tiny();
+		frog();
+		is_continue();
 	}
 	else
 		rescue = 0;
@@ -617,7 +650,7 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
 			break;
 		}
-		
+
 		else
 		{
 			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
