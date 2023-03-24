@@ -322,13 +322,13 @@ void mushtype4(int &max2_3x, int &max2_3i)
 		}
 	}
 }
-void event13(knight &knight, int num)
+void event13(knight &knight, int num, string pack1)
 {
 	// read file mush ghost
 	string ss = to_string(num);
 	ifstream file;
 	int length;
-	file.open("mushGhostPack.txt");
+	file.open(pack1);
 	file >> length;
 	string num_line;
 	getline(file, num_line);
@@ -393,10 +393,10 @@ void event17(knight &knight)
 	knight.end_event();
 }
 
-void event19(knight &knight)
+void event19(knight &knight, string pack2)
 {
 	ifstream file;
-	file.open("aclepiusPack");
+	file.open(pack2);
 	int array[100][100];
 	int x, y;
 	file >> x >> y;
@@ -444,12 +444,12 @@ bool check_in_string(string s, string check)
 		return false;
 }
 
-void event18(knight &knight)
+void event18(knight &knight, string pack3)
 { // merlin
 	const string s1 = "Merlin";
 	const string s2 = "merlin";
 	ifstream file;
-	file.open("merlinPack.txt");
+	file.open(pack3);
 	int n;
 	string name_thing[100];
 	file >> n;
@@ -505,10 +505,11 @@ void read_input(string a, string l1, string l2, string l3)
 }
 
 // read file name in line 3
-void read_pack(string pack[3], string line3){
+void read_pack(string pack1, string pack2, string pack3, string line3){
 	stringstream file(line3);
-	string token;
-	
+	getline(file,pack1,',');
+	getline(file,pack2,',');
+	getline(file,pack3,',');
 }
 
 void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &maidenkiss, int &phoenixdown, int &rescue)
@@ -533,6 +534,8 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 
 	if (is_prime(knight.maxHP))
 		knight.is_lancelot = true;
+	string pack1,pack2,pack3;
+	read_pack(pack1,pack2,pack3,l3);
 
 	int order = 1;
 	long int num;
@@ -591,11 +594,11 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 		}
 		else if (num == 18 && !knight.merlin_yet)
 		{
-			event18(knight);
+			event18(knight, pack3);
 		}
 		else if (num == 19 && !knight.asclepius_yet)
 		{
-			event19(knight);
+			event19(knight, pack2);
 		}
 
 		else if (num == 0)
@@ -608,7 +611,7 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 		}
 		else if (num > 130)
 		{
-			event13(knight, num);
+			event13(knight, num, pack1);
 		}
 
 		if (rescue == 1 || rescue == 0)
