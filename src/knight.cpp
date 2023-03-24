@@ -50,202 +50,202 @@ bool is_fibo(int n)
 		return false;
 }
 
-struct knight
+int maxHP, HP, level, remedy, maidenkiss, phoenixdown;
+bool is_tiny = false;
+int countdown_tiny = 0;
+bool is_frog = false;
+int countdown_frog = 0;
+int prelevel;
+int rescue = -1;
+bool merlin_yet = false;
+bool asclepius_yet = false;
+bool is_arthur = false;
+bool is_lancelot = false;
+
+void tiny()
 {
-	int maxHP, HP, level, remedy, maidenkiss, phoenixdown;
-	bool is_tiny = false;
-	int countdown_tiny = 0;
-	bool is_frog = false;
-	int countdown_frog = 0;
-	int prelevel;
-	int rescue = -1;
-	bool merlin_yet = false;
-	bool asclepius_yet = false;
-	bool is_arthur = false;
-	bool is_lancelot = false;
-	void tiny()
+	if (is_tiny)
 	{
-		if (is_tiny)
+		if (remedy > 0)
 		{
-			if (remedy > 0)
-			{
-				HP = min(maxHP, HP * 5);
-				is_tiny = false;
-				countdown_tiny = 0;
-				remedy--;
-			}
-			else if (countdown_tiny == 1)
-			{
-				is_tiny = false;
-				HP = min(maxHP, HP * 5);
-				countdown_tiny = 0;
-			}
-			else
-				countdown_tiny--;
+			HP = min(maxHP, HP * 5);
+			is_tiny = false;
+			countdown_tiny = 0;
+			remedy--;
 		}
-	}
-	void frog()
-	{
-		if (is_frog)
+		else if (countdown_tiny == 1)
 		{
-			if (maidenkiss)
-			{
-				is_frog = false;
-				countdown_frog = 0;
-				level = prelevel;
-			}
-			else if (countdown_frog == 1)
-			{
-				is_frog = false;
-				level = prelevel;
-				countdown_frog = 0;
-			}
-			else
-				countdown_frog--;
+			is_tiny = false;
+			HP = min(maxHP, HP * 5);
+			countdown_tiny = 0;
 		}
+		else
+			countdown_tiny--;
 	}
-	void is_continue()
+}
+
+void frog()
+{
+	if (is_frog)
 	{
-		if (HP <= 0 && phoenixdown)
+		if (maidenkiss)
 		{
-			HP = maxHP;
-			phoenixdown--;
-			rescue = -1;
+			is_frog = false;
+			countdown_frog = 0;
+			level = prelevel;
 		}
-		else if (HP <= 0 && phoenixdown == 0)
+		else if (countdown_frog == 1)
 		{
-			rescue = 0;
+			is_frog = false;
+			level = prelevel;
+			countdown_frog = 0;
 		}
-		else if (HP > 0)
-			rescue = -1;
+		else
+			countdown_frog--;
 	}
+}
 
-	void end_event()
+void is_continue()
+{
+	if (HP <= 0 && phoenixdown)
 	{
-		tiny();
-		frog();
-		is_continue();
+		HP = maxHP;
+		phoenixdown--;
+		rescue = -1;
 	}
-};
-
-void event1(knight &knight, int order)
-{
-	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
-	if (knight.level > levelO || knight.is_arthur || knight.is_lancelot)
-		knight.level = min(10, knight.level + 1);
-	else if (knight.level < levelO)
-		knight.HP -= levelO * 10;
-
-	knight.end_event();
-}
-
-void event2(knight &knight, int order)
-{
-	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
-	if (knight.level > levelO || knight.is_arthur || knight.is_lancelot)
-		knight.level = min(10, knight.level + 1);
-	else if (knight.level < levelO)
-		knight.HP -= levelO * 15;
-	knight.end_event();
-}
-
-void event3(knight &knight, int order)
-{
-	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
-	if (knight.level > levelO || knight.is_arthur || knight.is_lancelot)
-		knight.level = min(10, knight.level + 1);
-	else if (knight.level < levelO)
-		knight.HP -= levelO * 45;
-
-	knight.end_event();
-}
-void event4(knight &knight, int order)
-{
-	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
-	if (knight.level > levelO || knight.is_arthur || knight.is_lancelot)
-		knight.level = min(10, knight.level + 1);
-	else if (knight.level < levelO)
-		knight.HP -= levelO * 75;
-
-	knight.end_event();
-}
-void event5(knight &knight, int order)
-{
-	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
-	if (knight.level > levelO || knight.is_arthur || knight.is_lancelot)
-		knight.level = min(10, knight.level + 1);
-	else if (knight.level < levelO)
-		knight.HP -= levelO * 95;
-
-	knight.end_event();
-}
-void event6(knight &knight, int order)
-{
-	if (knight.is_frog || knight.is_tiny)
+	else if (HP <= 0 && phoenixdown == 0)
 	{
-		knight.end_event();
+		rescue = 0;
+	}
+	else if (HP > 0)
+		rescue = -1;
+}
+
+void end_event()
+{
+	tiny();
+	frog();
+	is_continue();
+}
+
+void event1(int order)
+{
+	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
+	if (level > levelO || is_arthur || is_lancelot)
+		level = min(10, level + 1);
+	else if (level < levelO)
+		HP -= levelO * 10;
+
+	end_event();
+}
+
+void event2(int order)
+{
+	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
+	if (level > levelO || is_arthur || is_lancelot)
+		level = min(10, level + 1);
+	else if (level < levelO)
+		HP -= levelO * 15;
+	end_event();
+}
+
+void event3(int order)
+{
+	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
+	if (level > levelO || is_arthur || is_lancelot)
+		level = min(10, level + 1);
+	else if (level < levelO)
+		HP -= levelO * 45;
+
+	end_event();
+}
+void event4(int order)
+{
+	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
+	if (level > levelO || is_arthur || is_lancelot)
+		level = min(10, level + 1);
+	else if (level < levelO)
+		HP -= levelO * 75;
+
+	end_event();
+}
+void event5(int order)
+{
+	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
+	if (level > levelO || is_arthur || is_lancelot)
+		level = min(10, level + 1);
+	else if (level < levelO)
+		HP -= levelO * 95;
+
+	end_event();
+}
+void event6(int order)
+{
+	if (is_frog || is_tiny)
+	{
+		end_event();
 		return;
 	}
 	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
-	if (knight.level > levelO || knight.is_arthur || knight.is_lancelot)
-		knight.level = min(10, knight.level + 2);
-	else if (knight.level < levelO)
+	if (level > levelO || is_arthur || is_lancelot)
+		level = min(10, level + 2);
+	else if (level < levelO)
 	{
-		knight.is_tiny = true;
-		knight.countdown_tiny = 3;
-		knight.HP = max(1, knight.HP / 5);
+		is_tiny = true;
+		countdown_tiny = 3;
+		HP = max(1, HP / 5);
 	}
 
-	knight.end_event();
+	end_event();
 }
 
-void event7(knight &knight, int order)
+void event7(int order)
 {
-	if (knight.is_frog || knight.is_tiny)
+	if (is_frog || is_tiny)
 	{
-		knight.end_event();
+		end_event();
 		return;
 	}
 	int levelO = order > 6 ? (order % 10 > 5 ? order % 10 : 5) : order % 10;
-	if (knight.level > levelO)
+	if (level > levelO)
 	{
-		knight.level = min(10, knight.level + 2);
+		level = min(10, level + 2);
 	}
-	else if (knight.level < levelO || knight.is_arthur || knight.is_lancelot)
+	else if (level < levelO || is_arthur || is_lancelot)
 	{
-		knight.is_frog = true;
-		knight.countdown_frog = 3;
-		knight.prelevel = knight.level;
-		knight.level = 1;
+		is_frog = true;
+		countdown_frog = 3;
+		prelevel = level;
+		level = 1;
 	}
 
-	knight.end_event();
+	end_event();
 }
 
-void event11(knight &knight)
+void event11()
 {
-	int n1 = ((knight.level + knight.phoenixdown) % 5 + 1) * 3;
+	int n1 = ((level + phoenixdown) % 5 + 1) * 3;
 	int s1 = 0;
 	for (int i = 99; i >= 1 && n1 > 0; i -= 2)
 	{
 		s1 += i;
 		n1--;
 	}
-	knight.HP += (s1 % 100);
-	knight.HP = min(knight.HP, to_next_prime(knight.HP));
-	knight.end_event();
+	HP += (s1 % 100);
+	HP = min(HP, to_next_prime(HP));
+	end_event();
 }
-void event12(knight &knight)
+void event12()
 {
-	if (knight.HP > 1)
+	if (HP > 1)
 	{
-		knight.HP--;
-		while (!is_fibo(knight.HP))
+		HP--;
+		while (!is_fibo(HP))
 		{
-			knight.HP--;
+			HP--;
 		}
 	}
-	knight.end_event();
+	end_event();
 }
 // declare array for number sequence in MushhostPack
 int a[100], aa[100];
@@ -322,7 +322,7 @@ void mushtype4(int &max2_3x, int &max2_3i)
 		}
 	}
 }
-void event13(knight &knight, int num, string pack1)
+void event13(int num, string pack1)
 {
 	// read file mush ghost
 	string ss = to_string(num);
@@ -371,29 +371,29 @@ void event13(knight &knight, int num, string pack1)
 			mushtype3(m, n, length);
 		else if (ss[i] == '4')
 			mushtype4(m, n);
-		knight.HP = min(knight.maxHP, knight.HP - (m + n));
+		HP = min(maxHP, HP - (m + n));
 
-		knight.end_event();
+		end_event();
 	}
 }
 
-void event15(knight &knight)
+void event15()
 {
-	knight.remedy = min(knight.remedy + 1, 99);
-	knight.end_event();
+	remedy = min(remedy + 1, 99);
+	end_event();
 }
-void event16(knight &knight)
+void event16()
 {
-	knight.maidenkiss = min(knight.maidenkiss + 1, 99);
-	knight.end_event();
+	maidenkiss = min(maidenkiss + 1, 99);
+	end_event();
 }
-void event17(knight &knight)
+void event17()
 {
-	knight.phoenixdown = min(knight.phoenixdown + 1, 99);
-	knight.end_event();
+	phoenixdown = min(phoenixdown + 1, 99);
+	end_event();
 }
 
-void event19(knight &knight, string pack2)
+void event19(string pack2)
 {
 	ifstream file;
 	file.open(pack2);
@@ -415,24 +415,24 @@ void event19(knight &knight, string pack2)
 		{
 			if (array[i][j] == 15)
 			{
-				knight.remedy++;
+				remedy++;
 				take_line++;
 				if (array[i][j] == 16)
 				{
-					knight.maidenkiss++;
+					maidenkiss++;
 					take_line++;
 				}
 				if (array[i][j] == 17)
 				{
-					knight.phoenixdown++;
+					phoenixdown++;
 					take_line++;
 				}
 			}
 		}
 	}
 
-	knight.end_event();
-	knight.asclepius_yet = true;
+	end_event();
+	asclepius_yet = true;
 }
 
 // check a string in the string
@@ -444,7 +444,7 @@ bool check_in_string(string s, string check)
 		return false;
 }
 
-void event18(knight &knight, string pack3)
+void event18(string pack3)
 { // merlin
 	const string s1 = "Merlin";
 	const string s2 = "merlin";
@@ -468,20 +468,20 @@ void event18(knight &knight, string pack3)
 		else if ((check_in_string(name, "m") || check_in_string(name, "M")) && (check_in_string(name, "e") || check_in_string(name, "E")) && (check_in_string(name, "r") || check_in_string(name, "R")) && (check_in_string(name, "l") || check_in_string(name, "L")) && (check_in_string(name, "i") || check_in_string(name, "I")) && (check_in_string(name, "n") || check_in_string(name, "N")))
 			HP_gain += 2;
 	}
-	knight.HP = min(knight.maxHP, knight.HP + HP_gain);
-	knight.merlin_yet = true;
-	knight.end_event();
+	HP = min(maxHP, HP + HP_gain);
+	merlin_yet = true;
+	end_event();
 }
 
-void event99(knight &knight)
+void event99()
 {
-	if (knight.level == 10 || knight.is_arthur || (knight.is_lancelot && knight.level >= 8))
+	if (level == 10 || is_arthur || (is_lancelot && level >= 8))
 	{
-		knight.level = 10;
-		knight.end_event();
+		level = 10;
+		end_event();
 	}
 	else
-		knight.rescue = 0;
+		rescue = 0;
 }
 
 void display(int HP, int level, int remedy, int maidenkiss, int phoenixdown, int rescue)
@@ -519,21 +519,12 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 	read_input(file_input, l1, l2, l3);
 	stringstream info(l1);
 	info >> HP >> level >> remedy >> maidenkiss >> phoenixdown;
+	maxHP = HP;
+	if (maxHP == 999)
+		is_arthur = true;
 
-	knight knight;
-
-	knight.HP = HP;
-	knight.maxHP = HP;
-	knight.level = level;
-	knight.remedy = remedy;
-	knight.maidenkiss = maidenkiss;
-	knight.phoenixdown = phoenixdown;
-	knight.rescue = rescue;
-	if (knight.maxHP == 999)
-		knight.is_arthur = true;
-
-	if (is_prime(knight.maxHP))
-		knight.is_lancelot = true;
+	if (is_prime(maxHP))
+		is_lancelot = true;
 	string pack1, pack2, pack3;
 	read_pack(pack1, pack2, pack3, l3);
 
@@ -545,84 +536,86 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 	{
 		if (num == 1)
 		{
-			event1(knight, order);
+			event1(order);
 		}
-		else if (num == 2)
+		if (num == 2)
 		{
-			event2(knight, order);
+			event2(order);
 		}
-		else if (num == 3)
+		if (num == 3)
 		{
-			event3(knight, order);
+			event3(order);
 		}
-		else if (num == 4)
+		if (num == 4)
 		{
-			event4(knight, order);
+			event4(order);
 		}
-		else if (num == 5)
+		if (num == 5)
 		{
-			event5(knight, order);
+			event5(order);
 		}
-		else if (num == 6)
+		if (num == 6)
 		{
-			event6(knight, order);
+			event6(order);
 		}
-		else if (num == 7)
+		if (num == 7)
 		{
-			event7(knight, order);
+			event7(order);
 		}
-		else if (num == 11)
+		if (num == 11)
 		{
-			event11(knight);
+			event11();
 		}
-		else if (num == 12)
+		if (num == 12)
 		{
-			event12(knight);
+			event12();
 		}
 
-		else if (num == 15)
+		if (num == 15)
 		{
-			event15(knight);
+			event15();
 		}
-		else if (num == 16)
+		if (num == 16)
 		{
-			event16(knight);
+			event16();
 		}
-		else if (num == 17)
+		if (num == 17)
 		{
-			event17(knight);
+			event17();
 		}
-		else if (num == 18 && !knight.merlin_yet)
+		if (num == 18 && !merlin_yet)
 		{
-			event18(knight, pack3);
+			event18(pack3);
 		}
-		else if (num == 19 && !knight.asclepius_yet)
+		if (num == 19 && !asclepius_yet)
 		{
-			event19(knight, pack2);
+			event19(pack2);
 		}
 
-		else if (num == 0)
+		if (num == 0)
 		{
 			rescue = 1;
 		}
-		else if (num == 99)
+		if (num == 99)
 		{
-			event99(knight);
+			event99();
 		}
-		else if (num > 130)
+		if (num > 130)
 		{
-			event13(knight, num, pack1);
+			event13(num, pack1);
 		}
 
 		if (rescue == 1 || rescue == 0)
 		{
-			display(knight.HP, knight.level, knight.remedy, knight.maidenkiss, knight.phoenixdown, knight.rescue);
+			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
 			break;
 		}
 		else
 		{
-			display(knight.HP, knight.level, knight.remedy, knight.maidenkiss, knight.phoenixdown, knight.rescue);
+			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
 			order++;
 		}
 	}
+
+	
 }
