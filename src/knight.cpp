@@ -1,6 +1,6 @@
 #include "knight.h"
 
-bool is_prime(int n)
+bool is_prime(int n) // checked
 {
 	if (n == 0 || n == 1)
 		return false;
@@ -14,7 +14,7 @@ bool is_prime(int n)
 	return true;
 }
 
-int to_next_prime(int n)
+int to_next_prime(int n) // checked
 {
 	n++;
 	while (!is_prime(n))
@@ -24,7 +24,7 @@ int to_next_prime(int n)
 	return n;
 }
 
-int fibo(int n)
+int fibo(int n) // checked
 {
 	int fibo[50];
 	fibo[0] = 0;
@@ -37,7 +37,7 @@ int fibo(int n)
 	return fibo[n];
 }
 
-bool is_fibo(int n)
+bool is_fibo(int n) // checked
 {
 	int i = 0;
 	while (fibo(i) < n)
@@ -112,6 +112,10 @@ void is_continue()
 		HP = maxHP;
 		phoenixdown--;
 		rescue = -1;
+		is_frog = false;
+		is_tiny = false;
+		countdown_frog = 0;
+		countdown_tiny = 0;
 	}
 	else if (HP <= 0 && phoenixdown == 0)
 	{
@@ -120,10 +124,6 @@ void is_continue()
 	else
 		rescue = -1;
 }
-
-tiny();
-frog();
-is_continue();
 
 void event1(int order)
 {
@@ -391,9 +391,6 @@ void event13(int num, string pack1)
 		else if (ss[i] == '4')
 			mushtype4(m, n);
 		HP = min(maxHP, HP - (m + n));
-
-		tiny();
-		frog();
 		is_continue();
 	}
 }
@@ -568,65 +565,65 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 
 	while (event >> num && rescue == -1)
 	{
-		if (num == 1)
+		if (num == 1 && rescue == -1)
 		{
 			event1(order);
 		}
-		if (num == 2)
+		if (num == 2 && rescue == -1)
 		{
 			event2(order);
 		}
-		if (num == 3)
+		if (num == 3 && rescue == -1)
 		{
 			event3(order);
 		}
-		if (num == 4)
+		if (num == 4 && rescue == -1)
 		{
 			event4(order);
 		}
-		if (num == 5)
+		if (num == 5 && rescue == -1)
 		{
 			event5(order);
 		}
-		if (num == 6)
+		if (num == 6 && rescue == -1)
 		{
 			event6(order);
 		}
-		if (num == 7)
+		if (num == 7 && rescue == -1)
 		{
 			event7(order);
 		}
-		if (num == 11)
+		if (num == 11 && rescue == -1)
 		{
 			event11();
 		}
-		if (num == 12)
+		if (num == 12 && rescue == -1)
 		{
 			event12();
 		}
 
-		if (num == 15)
+		if (num == 15 && rescue == -1)
 		{
 			event15();
 		}
-		if (num == 16)
+		if (num == 16 && rescue == -1)
 		{
 			event16();
 		}
-		if (num == 17)
+		if (num == 17 && rescue == -1)
 		{
 			event17();
 		}
-		if (num == 18 && !merlin_yet)
+		if (num == 18 && !merlin_yet && rescue == -1)
 		{
 			event18(pack3);
 		}
-		if (num == 19 && !asclepius_yet)
+		if (num == 19 && !asclepius_yet && rescue == -1)
 		{
 			event19(pack2);
 		}
 
-		if (num == 0)
+		if (num == 0 && rescue == -1)
 		{
 			rescue = 1;
 		}
@@ -634,13 +631,8 @@ void adventureToKoopa(string file_input, int &HP, int &level, int &remedy, int &
 		{
 			event99();
 		}
-		if (num == -1)
-		{
-			rescue = 1;
-			display(HP, level, remedy, maidenkiss, phoenixdown, rescue);
-			break;
-		}
-		if (num > 130)
+
+		if (num > 130 && rescue == -1)
 		{
 			event13(num, pack1);
 		}
